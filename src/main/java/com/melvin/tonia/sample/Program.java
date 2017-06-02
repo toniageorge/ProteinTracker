@@ -18,35 +18,27 @@ public class Program {
 		session.beginTransaction();
 		User user = new User();
 		user.setName("TON");
-		user.getUserHistory().add(new UserHistory(new Date(),"Set the name to Ton"));
-		//user.getUserHistory().put("gL123", new UserHistory(new Date(),"Set the name to Ton"));
+		user.addUserHistory(new UserHistory(new Date(),"Set the name to Ton"));
+		
 		user.getData().setGoal(250);
 		user.getData().setTotal(300);
-		user.getUserHistory().add(new UserHistory(new Date(),"last goal is 250"));
+		user.addUserHistory(new UserHistory(new Date(),"last goal is 250"));
 		session.save(user);
-		session.getTransaction().commit();
-		
-		
+		session.getTransaction().commit();		
 		//FOR GETTING DATA
 		session.beginTransaction();
 		//User loadedUser = session.load(User.class, 1);
 		User loadedUser = session.get(User.class, 1);
 		System.out.println(loadedUser.getName());
-		//
 		for(UserHistory history : loadedUser.getUserHistory()){
 			
 			System.out.println(history.getEntryTime()+" "+history.getEntry());
 		}
-		/*for(Entry<String, UserHistory> history : loadedUser.getUserHistory().entrySet()){
-			
-			System.out.println(history.getKey()+" "+"Key");
-			System.out.println(history.getValue().getEntryTime()+" "+history.getValue().getEntry());
-		}*/
 		
 		//update
 		loadedUser.getData().setTotal(500);
 		//loadedUser.getUserHistory().add(new UserHistory(new Date(),"set Total to 500"));
-		loadedUser.getUserHistory().add(new UserHistory(new Date(),"set Total to 500"));
+		loadedUser.addUserHistory(new UserHistory(new Date(),"set Total to 500"));
 		session.getTransaction().commit();
 		session.close();
 		HibernateUtilities.getSessionFactory().close();

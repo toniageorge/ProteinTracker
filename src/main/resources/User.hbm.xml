@@ -9,47 +9,13 @@
 			<generator class="increment" />
 		</id>
 		<property name="name" type="java.lang.String" column="NAME" />
-		<component name="data">
-		<property name="total" type="int" column="TOTAL" />
-		<property name="goal" type="int" column="GOAL" />
-		</component>
-		<!-- <set name="userHistory" table="user_History">
-		<key column ="ID" />
-		<composite-element class="com.melvin.tonia.model.UserHistory">
-			<property name="entryTime" type = "date" column="ENTRY_TIME"></property>
-			<property name="entry" type="string"></property>
-		</composite-element>
-		
-		</set> -->
-		<!-- <list name="userHistory" table="user_History">
-		<key column ="ID" />
-		<list-index column="POSITION"></list-index>
-		<composite-element class="com.melvin.tonia.model.UserHistory">
-			<property name="entryTime" type = "date" column="ENTRY_TIME"></property>
-			<property name="entry" type="string"></property>
-		</composite-element>
-		
-		</list> -->
-		<!-- <map name="userHistory" table="user_History">
-		<key column ="ID" />
-		<map-key type ="string" column="mapEntryId"></map-key>
-		<composite-element class="com.melvin.tonia.model.UserHistory">
-			<property name="entryTime" type = "date" column="ENTRY_TIME"></property>
-			<property name="entry" type="string"></property>
-		</composite-element>
-		
-		</map> -->
-		<idbag name="userHistory" table="user_History">
-		<collection-id type="int" column="id">
-		<generator class="increment"></generator>
-		</collection-id>
+		<one-to-one name="data" class= "com.melvin.tonia.model.ProteinData" cascade="save-update"></one-to-one>
+		<list name="userHistory" table="user_History" inverse="true" cascade="save-update">
 		<key column ="USER_ID" />
-		<composite-element class="com.melvin.tonia.model.UserHistory">
-			<property name="entryTime" type = "date" column="ENTRY_TIME"></property>
-			<property name="entry" type="string"></property>
-		</composite-element>
+		<list-index column="POSTION_INDEX"/>
+		<one-to-many class="com.melvin.tonia.model.UserHistory"/>
 		
-		</idbag>
+		</list>
 		
 	</class>
 </hibernate-mapping>

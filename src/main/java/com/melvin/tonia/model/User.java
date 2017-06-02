@@ -2,41 +2,18 @@ package com.melvin.tonia.model;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 public class User {
 
 	private int id;
 	private String name;
-	ProteinData data = new ProteinData();
-	//Set<UserHistory> userHistory = new HashSet<UserHistory>();
-	//List<UserHistory> userHistory = new ArrayList<UserHistory>();
-	//Map<String, UserHistory> userHistory = new HashMap<String, UserHistory>();
-	Collection<UserHistory> userHistory = new ArrayList<UserHistory>();
-	
-	/*public List<UserHistory> getUserHistory() {
-		return userHistory;
+	ProteinData data ;
+	List<UserHistory> userHistory = new ArrayList<UserHistory>();
+
+	public User (){
+		setData(new ProteinData());
 	}
-
-	public void setUserHistory(List<UserHistory> userHistory) {
-		this.userHistory = userHistory;
-	}*/
-
-	/*public Map<String, UserHistory> getUserHistory() {
-		return userHistory;
-	}
-
-	public void setUserHistory(Map<String, UserHistory> userHistory) {
-		this.userHistory = userHistory;
-	}*/
-
-	/*public Set<UserHistory> getUserHistory() {
-		return userHistory;
-	}
-
-	public void setUserHistory(Set<UserHistory> userHistory) {
-		this.userHistory = userHistory;
-	}
-*/
 	public ProteinData getData() {
 		return data;
 	}
@@ -45,12 +22,13 @@ public class User {
 		return userHistory;
 	}
 
-	public void setUserHistory(Collection<UserHistory> userHistory) {
+	public void setUserHistory(List<UserHistory> userHistory) {
 		this.userHistory = userHistory;
 	}
 
 	public void setData(ProteinData data) {
 		this.data = data;
+		data.setUser(this);
 	}
 
 	public int getId() {
@@ -69,6 +47,9 @@ public class User {
 		this.name = name;
 	}
 
-
+	public void addUserHistory(UserHistory history) {
+		history.setUser(this);
+		userHistory.add(history);
+	}
 
 }
